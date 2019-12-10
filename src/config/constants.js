@@ -13,7 +13,7 @@ const STAGES = {
     },
     APIS,
     DOMAIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev",
-    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin"
+    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/"
   },
   stg: {},
   prd: {
@@ -24,7 +24,7 @@ const STAGES = {
     },
     APIS,
     DOMAIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev",
-    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/user"
+    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/"
   }
 };
 
