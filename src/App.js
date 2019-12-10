@@ -11,6 +11,11 @@ import UserEdit from "./pages/User/user-edit";
 import UserCreate from "./pages/User/user-create";
 import UserShow from "./pages/User/user-show";
 
+import FranchiseList from "./pages/Franchise/franchise-list";
+import FranchiseEdit from "./pages/Franchise/franchise-edit";
+import FranchiseCreate from "./pages/Franchise/franchise-create";
+import FranchiseShow from "./pages/Franchise/franchise-show";
+
 import ContatoList from "./pages/Contato/contato-list";
 
 import PendenciaList from "./pages/Pendencia/pendencia-list";
@@ -28,6 +33,13 @@ function App() {
     <>
       <Admin dataProvider={dataProvider()} authProvider={authProvider}>
         <Resource
+          name="franquia"
+          list={FranchiseList}
+          edit={FranchiseEdit}
+          show={FranchiseShow}
+          create={FranchiseCreate}
+        />
+        {/* <Resource
           name="concurso"
           list={ConcursoList}
           edit={ConcursoCreate}
@@ -55,7 +67,7 @@ function App() {
           name="time"
           list={TimeList}
           create={TimeCreate}
-        />
+        /> */}
         {/* <Resource
           name="time"
           list={TimeList}
