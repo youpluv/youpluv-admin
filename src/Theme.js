@@ -21,7 +21,7 @@ const Theme = createMuiTheme({
       error: '#ffaaaa'
     },
     secondary: {
-      main: '#EC008C',
+      main: '#000',
     }
   },
   typography: {

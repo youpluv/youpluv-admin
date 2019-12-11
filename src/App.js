@@ -29,8 +29,6 @@ import authProvider from './services/auth-provider';
 import TimeList from "./pages/Times/time-list";
 import TimeCreate from "./pages/Times/time-create";
 
-
-
 function App() {
   return (
     <>
@@ -81,5 +79,3 @@ function App() {
 }
 
 export default App;
-
-
