@@ -31,7 +31,11 @@ export default () => {
         break;
       }
       case UPDATE: {
-        options.body = params.data;
+        options.body = {
+          ...params.data,
+          entity_id: params.data.id
+        }
+        delete options.body.id
         method = "PUT";
         break;
       }
@@ -73,9 +77,9 @@ export default () => {
           data: {id: data.entity_id, ...data}
       };
       case UPDATE:
-        return { data: { ...params.data, id: data.data.id } };
+        return { data: { ...params.data, id: data.data } };
       case CREATE:
-        return { data: { ...params.data, id: data.data.id } };
+        return { data: { ...params.data, id: data.data } };
       case DELETE:
           return { data: { previousData: params.data, id: data.id } };
       default:
@@ -98,7 +102,7 @@ export default () => {
           response => convertHTTPResponse(response, type, resource, params)
         );
       case "PUT":
-        const _id = "/" + options.body.id
+        const _id = "/" + options.body.entity_id
         return API.put(config.APIS.BOLAOABBR_ADMIN, resource + _id, options).then(
           response => convertHTTPResponse(response, type, resource, params)
         ).catch(error=>console.log("ERROR PUT :: ", error));

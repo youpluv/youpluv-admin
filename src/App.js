@@ -33,9 +33,9 @@ function App() {
     <>
       <Admin dataProvider={dataProvider()} authProvider={authProvider}>
         <Resource
-          name="franquia"
+          name="franchise"
           list={FranchiseList}
-          edit={FranchiseEdit}
+          edit={FranchiseCreate}
           show={FranchiseShow}
           create={FranchiseCreate}
         />

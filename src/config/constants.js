@@ -1,30 +1,30 @@
 const APIS = {
-  BOLAOABBR: "bolaoabbr-api",
-  BOLAOABBR_PUBLIC: "bolaoabbr-public-api",
-  BOLAOABBR_ADMIN: "bolaoabbr-admin-api"
+  BOLAOABBR: "mylash-api",
+  BOLAOABBR_PUBLIC: "mylash-public-api",
+  BOLAOABBR_ADMIN: "mylash-admin-api"
 };
 
 const STAGES = {
   dev: {
     COGNITO: {
       REGION: "us-east-1",
-      USER_POOL_ID: "us-east-1_KSB5mpHsR",
-      APP_CLIENT_ID: "63tm1s50masmlheprputq1gddt"
+      USER_POOL_ID: "us-east-1_zakxcfV58",
+      APP_CLIENT_ID: "52f29jf7umop7qs9m2tqftpsfv"
     },
     APIS,
-    DOMAIN: "https://tek6o9u89b.execute-api.us-east-1.amazonaws.com/api",
-    DOMAIN_ADMIN: "https://tek6o9u89b.execute-api.us-east-1.amazonaws.com/api/admin/"
+    DOMAIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev",
+    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/"
   },
   stg: {},
   prd: {
     COGNITO: {
       REGION: "us-east-1",
-      USER_POOL_ID: "us-east-1_EaIhlTa2A",
-      APP_CLIENT_ID: "33s2jn1hhcspjfl7bcbggie7dk"
+      USER_POOL_ID: "us-east-1_zakxcfV58",
+      APP_CLIENT_ID: "52f29jf7umop7qs9m2tqftpsfv"
     },
     APIS,
-    DOMAIN: "https://dhov5q9xhh.execute-api.us-east-1.amazonaws.com/api",
-    DOMAIN_ADMIN: "https://dhov5q9xhh.execute-api.us-east-1.amazonaws.com/api/admin/"
+    DOMAIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev",
+    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/"
   }
 };
 
