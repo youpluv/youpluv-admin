@@ -8,14 +8,13 @@ import {
   TextInput,
   CardActions,
   CreateButton,
-  RefreshButton
+  // RefreshButton
 } from "react-admin";
 
-import { Storage } from "aws-amplify";
 
-import { API } from "aws-amplify";
+// import { API } from "aws-amplify";
 
-import config from "../../config/constants";
+// import config from "../../config/constants";
 // import Upload from "../../components/upload/Upload";
 
 const FranchiseFilter = props => (
@@ -34,41 +33,41 @@ const FranchiseList = props => {
   const [state, setState] = useState({});
   const [file, setFile] = useState({});
 
-  async function getUrl() {
-    const response = await API.get(
-      config.APIS.BOLAOABBR_ADMIN,
-      "intranet/upload"
-    );
-    console.log("response :: ", response);
-    setState({ ...response.fields, url: response.url });
-  }
+  // async function getUrl() {
+  //   const response = await API.get(
+  //     config.APIS.BOLAOABBR_ADMIN,
+  //     "intranet/upload"
+  //   );
+  //   console.log("response :: ", response);
+  //   setState({ ...response.fields, url: response.url });
+  // }
 
-  function fileUpload(form) {
-    let formData = new FormData();
-    formData.append("key", form.key);
-    formData.append("AWSAccessKeyId", form.AWSAccessKeyId);
-    formData.append("policy", form.policy);
-    formData.append("signature", form.signature);
-    formData.append("x-amz-security-token", form["x-amz-security-token"]);
-    formData.append("file", file);
-    const config = {
-      method: "POST",
-      body: formData,
-      enctype: "multipart/form-data"
-    };
-    console.log(formData)
-    fetch(form.url, config)
-  }
+  // function fileUpload(form) {
+  //   let formData = new FormData();
+  //   formData.append("key", form.key);
+  //   formData.append("AWSAccessKeyId", form.AWSAccessKeyId);
+  //   formData.append("policy", form.policy);
+  //   formData.append("signature", form.signature);
+  //   formData.append("x-amz-security-token", form["x-amz-security-token"]);
+  //   formData.append("file", file);
+  //   const config = {
+  //     method: "POST",
+  //     body: formData,
+  //     enctype: "multipart/form-data"
+  //   };
+  //   console.log(formData)
+  //   fetch(form.url, config)
+  // }
 
-  function handleChangeFile(e) {
-    setFile(e.target.files[0]);
-  }
+  // function handleChangeFile(e) {
+  //   setFile(e.target.files[0]);
+  // }
 
   return (
     <>
-      <input type="file" name="file" onChange={handleChangeFile} />
+      {/* <input type="file" name="file" onChange={handleChangeFile} />
       <button onClick={() => getUrl()}>GetLink</button>
-      <button onClick={() => fileUpload(state)}>Upload</button>
+      <button onClick={() => fileUpload(state)}>Upload</button> */}
 
 {/* <Upload form={state} /> */}
       <List

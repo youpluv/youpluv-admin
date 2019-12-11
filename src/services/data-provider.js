@@ -36,7 +36,6 @@ export default () => {
           entity_id: params.data.id
         }
         delete options.body.id
-        console.log("DATA :: ", options.body)
         method = "PUT";
         break;
       }
@@ -103,7 +102,7 @@ export default () => {
           response => convertHTTPResponse(response, type, resource, params)
         );
       case "PUT":
-        const _id = "/" + options.body.id
+        const _id = "/" + options.body.entity_id
         return API.put(config.APIS.BOLAOABBR_ADMIN, resource + _id, options).then(
           response => convertHTTPResponse(response, type, resource, params)
         ).catch(error=>console.log("ERROR PUT :: ", error));
