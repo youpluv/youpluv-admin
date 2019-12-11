@@ -10,16 +10,6 @@ import {
   CreateButton,
   // RefreshButton
 } from "react-admin";
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  table: {
-    padding: '20px',
-    margin: '10px',
-    backgroundColor: 'red'
-  }
-})
-
 
 // import { API } from "aws-amplify";
 
@@ -78,8 +68,6 @@ const FranchiseList = props => {
   //   setFile(e.target.files[0]);
   // }
 
-  const classes = useStyles();
-
   return (
     <>
       {/* <input type="file" name="file" onChange={handleChangeFile} />
@@ -93,7 +81,7 @@ const FranchiseList = props => {
         filters={<FranchiseFilter />}
         actions={<CustomActions />}
       >
-        <Datagrid className={classes.table}>
+        <Datagrid>
           <TextField source="name" label="Nome" />
           <TextField source="email" label="Email" />
           <TextField source="phone_number" label="Telefone" />
