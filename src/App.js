@@ -1,5 +1,6 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
+import Theme from './Theme';
 
 import ConcursoList from "./pages/Concurso/concurso-list";
 // import ConcursoEdit from "./pages/Concurso/concurso-edit";
@@ -28,10 +29,12 @@ import authProvider from './services/auth-provider';
 import TimeList from "./pages/Times/time-list";
 import TimeCreate from "./pages/Times/time-create";
 
+
+
 function App() {
   return (
     <>
-      <Admin dataProvider={dataProvider()} authProvider={authProvider}>
+      <Admin theme={Theme} dataProvider={dataProvider()} authProvider={authProvider}>
         <Resource
           name="franchise"
           list={FranchiseList}
