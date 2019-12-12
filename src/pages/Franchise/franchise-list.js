@@ -4,6 +4,7 @@ import {
   List,
   TextField,
   EditButton,
+  DeleteButton,
   Filter,
   TextInput,
   CardActions,
@@ -86,6 +87,7 @@ const FranchiseList = props => {
           <TextField source="email" label="Email" />
           <TextField source="phone_number" label="Telefone" />
           <EditButton />
+          <DeleteButton />
         </Datagrid>
       </List>
     </>
