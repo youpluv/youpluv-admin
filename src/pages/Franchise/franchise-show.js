@@ -20,26 +20,24 @@ const FranchiseEdit = props => {
           <SimpleShowLayout>
             <BooleanField source="is_admin" label="Admin" />
             <TextField source="entity_id" label="ID" />
-            <NumberField source="_premio" label="Premiação" />
-            <NumberField source="_saldo" label="Saldo" />
+            <TextField source="name" label="Nome da Franquia" />
             <TextField source="email" label="Email" />
-            <TextField source="data.nome" label="Nome" />
-            <TextField source="data.nickname" label="Nickname" />
-            <TextField source="data.genero" label="Gênero" />
-            <TextField source="data.telefone" label="Telefone" />
-            <TextField source="data.cep" label="Cep" />
-            <TextField source="data.endereco" label="Endereco" />
-            <TextField source="data.complemento" label="Complemento" />
-            <TextField source="data.bairro" label="Bairro" />
-            <TextField source="data.cidade" label="Cidade" />
-            <TextField source="data.nascimento" label="Nascimento" />
-            <TextField source="data.estado" label="Estado" />
-            <TextField source="data.cpf" label="CPF" />
+            <TextField source="phone_number" label="Telefone" />
+            <TextField source="address_zip" label="CEP" />
+            <TextField source="address_street" label="Rua" />
+            <TextField source="address_number" label="Numero" />
+            <TextField source="address_complement" label="Complemento" />
+            <TextField source="address_neighborhood" label="Bairro" />
+            <TextField source="address_city" label="Cidade" />
+            <TextField source="address_state" label="Estado" />
+            <TextField source="url_trinks" label="Link Trinks" />
+            <TextField source="url_maps" label="Link Google Maps" />
+            <TextField source="work_hours" label="Horario de Funcionamento" />
           </SimpleShowLayout>
         </Show>
       </div>
 
-      <Show {...props} title=" " actions={<div />}>
+      {/* <Show {...props} title=" " actions={<div />}>
         <TabbedShowLayout>
           <Tab label="Cartelas">
             <ArrayField source="cartela">
@@ -47,7 +45,7 @@ const FranchiseEdit = props => {
                 <TextField source="entity_id" label="ID" />
                 <DateField source="concurso_data_inicio" label="Data Início" />
                 <DateField source="concurso_data_fim" label="Data Fim" />
-                {/* <ArrayField source="jogos">
+                <ArrayField source="jogos">
                   <Datagrid>
                     <TextField source="entity_id" label="ID" />
                     <DateField source="data" label="Data" />
@@ -55,7 +53,7 @@ const FranchiseEdit = props => {
                     <TextField source="visitante" label="Visitante" />
                     <TextField source="palpite" label="Palpite" />
                   </Datagrid>
-                </ArrayField> */}
+                </ArrayField>
               </Datagrid>
             </ArrayField>
           </Tab>
@@ -77,7 +75,7 @@ const FranchiseEdit = props => {
             </ArrayField>
           </Tab>
         </TabbedShowLayout>
-      </Show>
+      </Show> */}
     </>
   );
 };
