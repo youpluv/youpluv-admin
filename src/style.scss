@@ -44,9 +44,8 @@ body {
     }
 }
 
-// .MuiButton-label {
-//     color: $primaryColor;
-// }
+
+
 
 .simple-form {
     & > *:nth-child(1) {
@@ -66,3 +65,31 @@ body {
         }
     }
 }
+
+
+
+// Campos login
+.MuiButton-containedPrimary {
+    color: #fff;
+    background-color: $primaryColor !important;
+}
+
+.MuiButton-containedPrimary:hover{
+    background-color: $primaryColor !important;
+}
+
+.MuiInput-underline:after{
+    border-bottom: 2px solid $primaryColor !important;
+}
+
+.MuiFormLabel-root.Mui-focused{
+    color: $primaryColor !important;
+}
+
+
+// Loading button login 
+.MuiCircularProgress-colorPrimary{
+    color: #fff !important;
+}
+
+
