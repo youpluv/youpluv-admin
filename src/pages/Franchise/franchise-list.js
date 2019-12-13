@@ -5,6 +5,7 @@ import {
   TextField,
   EditButton,
   DeleteButton,
+  ShowButton,
   Filter,
   TextInput,
   CardActions,
@@ -69,6 +70,10 @@ const FranchiseList = props => {
   //   setFile(e.target.files[0]);
   // }
 
+  // const useStyles = makeStyles({
+
+  // })
+
   return (
     <>
       {/* <input type="file" name="file" onChange={handleChangeFile} />
@@ -86,6 +91,7 @@ const FranchiseList = props => {
           <TextField source="name" label="Nome" />
           <TextField source="email" label="Email" />
           <TextField source="phone_number" label="Telefone" />
+          <ShowButton />
           <EditButton />
           <DeleteButton />
         </Datagrid>

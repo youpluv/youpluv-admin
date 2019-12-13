@@ -1,14 +1,11 @@
 import React from 'react';
 import { Login } from 'react-admin';
-import Background from '../../assets/images/login-background.png';
 
 
 const classes = {
   login: {
     main: {
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center'
+      backgroundColor: '#fcf6f6',
     }
   }
 }
@@ -16,7 +13,7 @@ const classes = {
 const LoginPage = () => {
 
   return(
-    <Login style={classes.login.main} backgroundImage={Background} />
+    <Login style={classes.login.main} backgroundImage="" />
   )
 }
 
