@@ -1,5 +1,7 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
+import Theme from './Theme';
+import LoginPage from './components/LoginPage/LoginPage';
 
 import ConcursoList from "./pages/Concurso/concurso-list";
 // import ConcursoEdit from "./pages/Concurso/concurso-edit";
@@ -31,7 +33,12 @@ import TimeCreate from "./pages/Times/time-create";
 function App() {
   return (
     <>
-      <Admin dataProvider={dataProvider()} authProvider={authProvider}>
+      <Admin 
+        theme={Theme}
+        loginPage={LoginPage}
+        dataProvider={dataProvider()} 
+        authProvider={authProvider} 
+      >
         <Resource
           name="franchise"
           list={FranchiseList}
@@ -78,5 +85,3 @@ function App() {
 }
 
 export default App;
-
-
