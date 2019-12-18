@@ -1,7 +1,7 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
-import Theme from './Theme';
-import LoginPage from './components/LoginPage/LoginPage';
+import Theme from "./Theme";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 import ConcursoList from "./pages/Concurso/concurso-list";
 // import ConcursoEdit from "./pages/Concurso/concurso-edit";
@@ -24,20 +24,22 @@ import PendenciaList from "./pages/Pendencia/pendencia-list";
 import PendenciaShow from "./pages/Pendencia/pendencia-show";
 import PendenciaEdit from "./pages/Pendencia/pendencia-edit";
 
-import './style.scss'
+import Documents from "./pages/Documents/Documents";
+
+import "./style.scss";
 import dataProvider from "./services/data-provider";
-import authProvider from './services/auth-provider';
+import authProvider from "./services/auth-provider";
 import TimeList from "./pages/Times/time-list";
 import TimeCreate from "./pages/Times/time-create";
 
 function App() {
   return (
     <>
-      <Admin 
+      <Admin
         theme={Theme}
         loginPage={LoginPage}
-        dataProvider={dataProvider()} 
-        authProvider={authProvider} 
+        dataProvider={dataProvider()}
+        authProvider={authProvider}
       >
         <Resource
           name="franchise"
@@ -45,6 +47,20 @@ function App() {
           edit={FranchiseCreate}
           show={FranchiseShow}
           create={FranchiseCreate}
+        />
+        <Resource
+          name="file"
+          list={Documents}
+          // edit={FranchiseCreate}
+          // show={FranchiseShow}
+          // create={FranchiseCreate}
+        />
+        <Resource
+          name="folder"
+          list={Documents}
+          // edit={FranchiseCreate}
+          // show={FranchiseShow}
+          // create={FranchiseCreate}
         />
         {/* <Resource
           name="concurso"

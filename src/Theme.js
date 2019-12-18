@@ -1,5 +1,5 @@
 import { createMuiTheme } from "@material-ui/core";
-import LatoRegular from './assets/fonts/Lato-Regular.ttf';
+import LatoRegular from "./assets/fonts/Lato-Regular.ttf";
 
 // const lato ={
 //   fontFamily: 'Lato',
@@ -15,15 +15,16 @@ import LatoRegular from './assets/fonts/Lato-Regular.ttf';
 
 const Theme = createMuiTheme({
   palette: {
-    type: 'light',
+    type: "light",
     primary: {
-      main: '#EC008C',
-      error: '#ffaaaa'
+      main: "#EC008C",
+      error: "#ffaaaa",
+      highlight: "#f1f1f1"
     },
     secondary: {
-      main: '#000',      
+      main: "#000"
     }
-  },
+  }
   // typography: {
   //   fontFamily: 'Lato'
   // },
@@ -34,6 +35,6 @@ const Theme = createMuiTheme({
   //     }
   //   }
   // }
-})
+});
 
 export default Theme;
