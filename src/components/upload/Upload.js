@@ -32,6 +32,7 @@ export default props => {
   useEffect(() => {
     console.log("FORM :: ", form);
     if (form.url) fileUpload(form);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.url]);
 
   const classes = useStyles();

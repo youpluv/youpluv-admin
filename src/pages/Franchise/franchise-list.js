@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Datagrid,
   List,
@@ -9,7 +9,7 @@ import {
   Filter,
   TextInput,
   CardActions,
-  CreateButton,
+  CreateButton
   // RefreshButton
 } from "react-admin";
 
@@ -19,21 +19,19 @@ import {
 // import Upload from "../../components/upload/Upload";
 
 const FranchiseFilter = props => {
-
-  return(
+  return (
     <Filter {...props}>
       <TextInput label="Buscar" source="email" alwaysOn />
     </Filter>
-  )
+  );
 };
 
 const CustomActions = ({ basePath }) => {
-
-  return(
+  return (
     <CardActions>
       <CreateButton basePath={basePath} />
     </CardActions>
-  )
+  );
 };
 
 const FranchiseList = props => {

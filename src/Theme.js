@@ -1,5 +1,5 @@
 import { createMuiTheme } from "@material-ui/core";
-import LatoRegular from "./assets/fonts/Lato-Regular.ttf";
+// import LatoRegular from "./assets/fonts/Lato-Regular.ttf";
 
 // const lato ={
 //   fontFamily: 'Lato',
