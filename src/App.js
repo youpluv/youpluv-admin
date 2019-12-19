@@ -14,9 +14,11 @@ import UserCreate from "./pages/User/user-create";
 import UserShow from "./pages/User/user-show";
 
 import FranchiseList from "./pages/Franchise/franchise-list";
-import FranchiseEdit from "./pages/Franchise/franchise-edit";
 import FranchiseCreate from "./pages/Franchise/franchise-create";
 import FranchiseShow from "./pages/Franchise/franchise-show";
+
+import FileList from './pages/File/file-list';
+import FileEdit from './pages/File/file-edit';
 
 import ContatoList from "./pages/Contato/contato-list";
 
@@ -46,14 +48,13 @@ function App() {
           show={FranchiseShow}
           create={FranchiseCreate}
         />
-        {/* <Resource
-          name="concurso"
-          list={ConcursoList}
-          edit={ConcursoCreate}
-          create={ConcursoCreate}
-          show={ConcursoShow}
-        />
         <Resource
+          name="file"
+          list={FileList}
+          edit={FileEdit}
+          // create={ConcursoCreate}
+        />
+        {/* <Resource
           name="user"
           list={UserList}
           edit={UserEdit}
@@ -74,8 +75,8 @@ function App() {
           name="time"
           list={TimeList}
           create={TimeCreate}
-        /> */}
-        {/* <Resource
+        />
+        <Resource
           name="time"
           list={TimeList}
         /> */}
