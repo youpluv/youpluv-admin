@@ -1,157 +1,109 @@
-import React, { Component } from "react";
-import Dropzone from "../dropzone/Dropzone";
-import "./Upload.css";
-import Progress from "../progress/Progress";
+import React, { useState, useEffect } from "react";
+import { API } from "aws-amplify";
+import config from "../../config/constants";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
-class Upload extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      files: [],
-      uploading: false,
-      uploadProgress: {},
-      successfullUploaded: false
-    };
-
-    this.onFilesAdded = this.onFilesAdded.bind(this);
-    this.uploadFiles = this.uploadFiles.bind(this);
-    this.sendRequest = this.sendRequest.bind(this);
-    this.renderActions = this.renderActions.bind(this);
+const useStyles = makeStyles(theme => ({
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    backgroundColor: theme.palette.primary.highlight,
+    marginBottom: "20px",
+    boxShadow: "none"
   }
+}));
 
-  onFilesAdded(files) {
-    this.setState(prevState => ({
-      files: prevState.files.concat(files)
-    }));
-  }
+export default props => {
+  // useEffect(() => {
+  //   console.log("UPLOAD :: ", file);
+  //   if (file) {
+  //     API.get(config.APIS.MYLASH, "upload").then(response => {
+  //       fileUpload({ ...response.fields, url: response.url });
+  //     });
+  //   }
+  // }, [file]);
+  const [form, setForm] = useState({});
+  const [file, setFile] = useState({});
 
-  async uploadFiles() {
-    this.setState({ uploadProgress: {}, uploading: true });
-    const promises = [];
-    this.state.files.forEach(file => {
-      promises.push(this.sendRequest(file));
-    });
-    try {
-      await Promise.all(promises);
+  useEffect(() => {
+    console.log("FORM :: ", form);
+    if (form.url) fileUpload(form);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.url]);
 
-      this.setState({ successfullUploaded: true, uploading: false });
-    } catch (e) {
-      // Not Production ready! Do some error handling here instead...
-      this.setState({ successfullUploaded: true, uploading: false });
-    }
-  }
+  const classes = useStyles();
 
-  sendRequest(file) {
-    return new Promise((resolve, reject) => {
-      const req = new XMLHttpRequest();
-
-      req.upload.addEventListener("progress", event => {
-        if (event.lengthComputable) {
-          const copy = { ...this.state.uploadProgress };
-          copy[file.name] = {
-            state: "pending",
-            percentage: (event.loaded / event.total) * 100
-          };
-          this.setState({ uploadProgress: copy });
-        }
-      });
-
-      req.upload.addEventListener("load", event => {
-        const copy = { ...this.state.uploadProgress };
-        copy[file.name] = { state: "done", percentage: 100 };
-        this.setState({ uploadProgress: copy });
-        resolve(req.response);
-      });
-
-      req.upload.addEventListener("error", event => {
-        const copy = { ...this.state.uploadProgress };
-        copy[file.name] = { state: "error", percentage: 0 };
-        this.setState({ uploadProgress: copy });
-        reject(req.response);
-      });
-
-      const formData = new FormData();
-      formData.append("key", this.props.form.key);
-      formData.append("AWSAccessKeyId", this.props.form.AWSAccessKeyId);
-      formData.append("policy", this.props.form.policy);
-      formData.append("signature", this.props.form.signature);
-      formData.append("file", file, file.name);
-      console.log(formData)
-
-      req.open("POST", this.props.form.url);
-      req.send(formData);
-    });
-  }
-
-  renderProgress(file) {
-    const uploadProgress = this.state.uploadProgress[file.name];
-    if (this.state.uploading || this.state.successfullUploaded) {
-      return (
-        <div className="ProgressWrapper">
-          <Progress progress={uploadProgress ? uploadProgress.percentage : 0} />
-          <img
-            className="CheckIcon"
-            alt="done"
-            src="baseline-check_circle_outline-24px.svg"
-            style={{
-              opacity:
-                uploadProgress && uploadProgress.state === "done" ? 0.5 : 0
-            }}
-          />
-        </div>
-      );
-    }
-  }
-
-  renderActions() {
-    if (this.state.successfullUploaded) {
-      return (
-        <button
-          onClick={() =>
-            this.setState({ files: [], successfullUploaded: false })
-          }
-        >
-          Clear
-        </button>
-      );
-    } else {
-      return (
-        <button
-          disabled={this.state.files.length < 0 || this.state.uploading}
-          onClick={this.uploadFiles}
-        >
-          Upload
-        </button>
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div className="Upload">
-        <span className="Title">Upload Files</span>
-        <div className="Content">
-          <div>
-            <Dropzone
-              onFilesAdded={this.onFilesAdded}
-              disabled={this.state.uploading || this.state.successfullUploaded}
-            />
-          </div>
-          <div className="Files">
-            {this.state.files.map(file => {
-              return (
-                <div key={file.name} className="Row">
-                  <span className="Filename">{file.name}</span>
-                  {this.renderProgress(file)}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="Actions">{this.renderActions()}</div>
-      </div>
+  async function getUrl() {
+    const response = await API.get(
+      config.APIS.BOLAOABBR_ADMIN,
+      "intranet/upload"
     );
+    console.log("response :: ", response);
+    setForm({ ...response.fields, url: response.url });
   }
-}
 
-export default Upload;
+  function fileUpload(form) {
+    let formData = new FormData();
+    formData.append("key", form.key);
+    formData.append("AWSAccessKeyId", form.AWSAccessKeyId);
+    formData.append("policy", form.policy);
+    formData.append("signature", form.signature);
+    formData.append("x-amz-security-token", form["x-amz-security-token"]);
+    formData.append("file", file);
+    const config = {
+      method: "POST",
+      body: formData,
+      enctype: "multipart/form-data"
+    };
+    console.log(formData);
+    fetch(form.url, config);
+  }
+
+  function handleChangeFile(e) {
+    setFile(e.target.files[0]);
+    getUrl();
+  }
+
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <div
+              style={{
+                position: "relative",
+                width: "109px",
+                height: "37px",
+                overflow: "hidden"
+              }}
+            >
+              <input
+                type="file"
+                name="file"
+                onChange={handleChangeFile}
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  zIndex: 300,
+                  opacity: 0
+                }}
+              />
+              <Button variant="contained" color="primary">
+                IMPORTAR
+              </Button>
+            </div>
+            <input onChange={handleChangeFile} />
+          </Paper>
+        </Grid>
+
+        {/* <button onClick={() => getUrl()}>GetLink</button> */}
+        {/* <button onClick={() => fileUpload(state)}>Upload</button> */}
+      </Grid>
+    </div>
+  );
+};

@@ -1,16 +1,5 @@
 import React from "react";
-import {
-  BooleanField,
-  Datagrid,
-  TextField,
-  NumberField,
-  DateField,
-  ArrayField,
-  TabbedShowLayout,
-  Show,
-  Tab,
-  SimpleShowLayout
-} from "react-admin";
+import { BooleanField, TextField, Show, SimpleShowLayout } from "react-admin";
 
 const FranchiseEdit = props => {
   return (
