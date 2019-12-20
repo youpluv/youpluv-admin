@@ -7,7 +7,9 @@ import FranchiseList from "./pages/Franchise/franchise-list";
 import FranchiseCreate from "./pages/Franchise/franchise-create";
 import FranchiseShow from "./pages/Franchise/franchise-show";
 
-import Documents from "./pages/Documents/Documents";
+// import Documents from "./pages/Documents/Documents";
+import FileList from './pages/File/file-list';
+import FileEdit from './pages/File/file-edit';
 
 import "./style.scss";
 import dataProvider from "./services/data-provider";
@@ -29,7 +31,7 @@ function App() {
           show={FranchiseShow}
           create={FranchiseCreate}
         />
-        <Resource name="file" list={Documents} />
+        <Resource name="file" list={FileList} edit={FileEdit} />
         <Resource name="folder" />
       </Admin>
     </>
