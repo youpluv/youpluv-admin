@@ -39,6 +39,7 @@ export default function Upload(props) {
   const handleSetFileId = useCallback(
     fileId => {
       _form.change("url", fileId);
+      _form.change("id", fileId);
       console.log("FORM :: ", _form.getState());
     },
     [_form]
