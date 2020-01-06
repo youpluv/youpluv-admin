@@ -3,6 +3,7 @@ import { Edit, TextInput, SimpleForm, Toolbar, SaveButton } from "react-admin";
 import Grid from "@material-ui/core/Grid";
 
 import Upload from "../../components/Upload/Upload";
+import { getUrl } from "../../services/file.service";
 
 const CustomToolbar = props => {
   console.log("CUSTOM TOOLBAR :: ", props.fileId);
@@ -20,7 +21,7 @@ const FileCreate = props => {
         <SimpleForm toolbar={<CustomToolbar {...props} />}>
           <Grid container spacing={3}>
             {/* <Grid item sm={12} xs={12}> */}
-            <Upload />
+            <Upload source={"url"} getUrl={getUrl} />
             {/* </Grid> */}
 
             <TextInput source="name" label="Nome" />
