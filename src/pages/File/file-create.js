@@ -20,10 +20,7 @@ const FileCreate = props => {
       <Edit title="Usuário" {...props}>
         <SimpleForm toolbar={<CustomToolbar {...props} />}>
           <Grid container spacing={3}>
-            {/* <Grid item sm={12} xs={12}> */}
             <Upload source={"url"} getUrl={getUrl} />
-            {/* </Grid> */}
-
             <TextInput source="name" label="Nome" />
             <TextInput source="file_name" label="Nome do arquivo" />
           </Grid>

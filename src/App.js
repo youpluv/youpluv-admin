@@ -4,7 +4,7 @@ import Theme from "./Theme";
 import LoginPage from "./components/LoginPage/LoginPage";
 
 import FranchiseList from "./pages/Franchise/franchise-list";
-import FranchiseCreate from "./pages/Franchise/franchise-create";
+import FranchiseCreateOrEdit from "./pages/Franchise/franchise-create-or-edit";
 import FranchiseShow from "./pages/Franchise/franchise-show";
 
 // import Documents from "./pages/Documents/Documents";
@@ -28,9 +28,9 @@ function App() {
         <Resource
           name="franchise"
           list={FranchiseList}
-          edit={FranchiseCreate}
+          edit={FranchiseCreateOrEdit}
           show={FranchiseShow}
-          create={FranchiseCreate}
+          create={FranchiseCreateOrEdit}
         />
         <Resource
           name="file"

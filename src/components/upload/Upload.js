@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { API } from "aws-amplify";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -7,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import ProgressBar from "../ProgressBar";
 import { useForm } from "react-final-form";
 import useUpload from "../../hooks/useUpload";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,19 +33,20 @@ export default function Upload(props) {
 
   const { progress, startUpload, status } = useUpload();
 
-  const _form = useForm();
+  const formReactAdmin = useForm();
 
   useEffect(() => {
+    console.log("::FORM::", form);
     if (form.url) fileUpload(form);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.url]);
+  }, [form]);
 
   const handleSetFileId = useCallback(
     fileId => {
-      _form.change(source, fileId);
-      _form.change("id", fileId);
+      formReactAdmin.change(source, fileId);
+      formReactAdmin.change("id", fileId);
     },
-    [_form]
+    [formReactAdmin, source]
   );
 
   const classes = useStyles();
@@ -87,6 +88,7 @@ export default function Upload(props) {
   }
 
   function handleChangeFile(e) {
+    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
     getUrlUpload();
   }
@@ -127,7 +129,7 @@ export default function Upload(props) {
             </div>
           </Grid>
           <Grid item xs={6} alignItems={"center"} justify={"center"}>
-            <span>{file.name || "Nenhum arquivo selecionado"}</span>
+            <Typography>{file.name || "Nenhum arquivo selecionado"}</Typography>
           </Grid>
           <Grid item xs={12}>
             <ProgressBar progress={progress} />

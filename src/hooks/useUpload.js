@@ -9,6 +9,8 @@ export default () => {
   }
 
   function startUpload(url, formData) {
+    setProgress(0);
+
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.upload.onprogress = p => {
