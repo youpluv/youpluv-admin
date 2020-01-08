@@ -6,26 +6,21 @@ import {
   EditButton,
   DeleteButton,
   CardActions,
-  // CreateButton,
+  CreateButton
 } from "react-admin";
 
 const CustomActions = ({ basePath }) => {
-  return(
+  return (
     <CardActions>
-      {/* <CreateButton basePath={basePath} /> */}
+      <CreateButton basePath={basePath} />
     </CardActions>
-  )
+  );
 };
-
 
 const FileList = props => {
   return (
     <>
-      <List
-        bulkActionButtons={false}
-        actions={<CustomActions />}
-        {...props}
-      >
+      <List bulkActionButtons={false} actions={<CustomActions />} {...props}>
         <Datagrid>
           <TextField source="name" label="Nome" />
           <TextField source="file_name" label="File" />

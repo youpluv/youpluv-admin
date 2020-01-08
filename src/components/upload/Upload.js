@@ -1,52 +1,79 @@
-import React, { useState, useEffect } from "react";
-import { API } from "aws-amplify";
-import config from "../../config/constants";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import ProgressBar from "../ProgressBar";
+import { useForm } from "react-final-form";
+import useUpload from "../../hooks/useUpload";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100%"
+  },
   paper: {
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
     backgroundColor: theme.palette.primary.highlight,
     marginBottom: "20px",
-    boxShadow: "none"
+    boxShadow: "none",
+    width: "300px"
   }
 }));
 
-export default props => {
-  // useEffect(() => {
-  //   console.log("UPLOAD :: ", file);
-  //   if (file) {
-  //     API.get(config.APIS.MYLASH, "upload").then(response => {
-  //       fileUpload({ ...response.fields, url: response.url });
-  //     });
-  //   }
-  // }, [file]);
+export default function Upload(props) {
+  const { source = "url", getUrl = () => {} } = props;
   const [form, setForm] = useState({});
   const [file, setFile] = useState({});
+  // const [progress, setProgress] = useState(0);
+
+  const { progress, startUpload, status } = useUpload();
+
+  const formReactAdmin = useForm();
 
   useEffect(() => {
-    console.log("FORM :: ", form);
+    console.log("::FORM::", form);
     if (form.url) fileUpload(form);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.url]);
+  }, [form]);
+
+  const handleSetFileId = useCallback(
+    fileId => {
+      formReactAdmin.change(source, fileId);
+      formReactAdmin.change("id", fileId);
+    },
+    [formReactAdmin, source]
+  );
 
   const classes = useStyles();
 
-  async function getUrl() {
-    const response = await API.get(
-      config.APIS.BOLAOABBR_ADMIN,
-      "intranet/upload"
-    );
-    console.log("response :: ", response);
+  async function getUrlUpload() {
+    const response = await getUrl();
+    handleSetFileId(response.fields.key);
     setForm({ ...response.fields, url: response.url });
   }
 
   function fileUpload(form) {
+    // check file type
+    // if (
+    //   !["image/jpeg", "image/gif", "image/png", "image/svg+xml"].includes(
+    //     file.type
+    //   )
+    // ) {
+    //   console.log("Only images are allowed.");
+    //   return;
+    // }
+
+    // check file size (< 2MB)
+    if (file.size > 5 * 1024 * 1024) {
+      console.log("File must be less than 5MB.");
+      return;
+    }
+
     let formData = new FormData();
     formData.append("key", form.key);
     formData.append("AWSAccessKeyId", form.AWSAccessKeyId);
@@ -54,25 +81,23 @@ export default props => {
     formData.append("signature", form.signature);
     formData.append("x-amz-security-token", form["x-amz-security-token"]);
     formData.append("file", file);
-    const config = {
-      method: "POST",
-      body: formData,
-      enctype: "multipart/form-data"
-    };
-    console.log(formData);
-    fetch(form.url, config);
+
+    console.log(file);
+
+    startUpload(form.url, formData);
   }
 
   function handleChangeFile(e) {
+    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
-    getUrl();
+    getUrlUpload();
   }
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
+      <Paper className={classes.paper}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
             <div
               style={{
                 position: "relative",
@@ -82,28 +107,35 @@ export default props => {
               }}
             >
               <input
+                id="file"
                 type="file"
                 name="file"
                 onChange={handleChangeFile}
                 style={{
                   position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  zIndex: 300,
+                  zIndex: -1,
                   opacity: 0
                 }}
               />
-              <Button variant="contained" color="primary">
-                IMPORTAR
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                disabled={status === "loading"}
+                onClick={() => document.querySelector("#file").click()}
+              >
+                {status === "loading" ? `${progress}%` : "IMPORTAR"}
               </Button>
             </div>
-            <input onChange={handleChangeFile} />
-          </Paper>
+          </Grid>
+          <Grid item xs={6} alignItems={"center"} justify={"center"}>
+            <Typography>{file.name || "Nenhum arquivo selecionado"}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <ProgressBar progress={progress} />
+          </Grid>
         </Grid>
-
-        {/* <button onClick={() => getUrl()}>GetLink</button> */}
-        {/* <button onClick={() => fileUpload(state)}>Upload</button> */}
-      </Grid>
+      </Paper>
     </div>
   );
-};
+}

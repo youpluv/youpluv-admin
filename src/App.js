@@ -4,12 +4,13 @@ import Theme from "./Theme";
 import LoginPage from "./components/LoginPage/LoginPage";
 
 import FranchiseList from "./pages/Franchise/franchise-list";
-import FranchiseCreate from "./pages/Franchise/franchise-create";
+import FranchiseCreateOrEdit from "./pages/Franchise/franchise-create-or-edit";
 import FranchiseShow from "./pages/Franchise/franchise-show";
 
 // import Documents from "./pages/Documents/Documents";
-import FileList from './pages/File/file-list';
-import FileEdit from './pages/File/file-edit';
+import FileList from "./pages/File/file-list";
+import FileEdit from "./pages/File/file-edit";
+import FileCreate from "./pages/File/file-create";
 
 import "./style.scss";
 import dataProvider from "./services/data-provider";
@@ -27,11 +28,16 @@ function App() {
         <Resource
           name="franchise"
           list={FranchiseList}
-          edit={FranchiseCreate}
+          edit={FranchiseCreateOrEdit}
           show={FranchiseShow}
-          create={FranchiseCreate}
+          create={FranchiseCreateOrEdit}
         />
-        <Resource name="file" list={FileList} edit={FileEdit} />
+        <Resource
+          name="file"
+          list={FileList}
+          edit={FileEdit}
+          create={FileCreate}
+        />
         <Resource name="folder" />
       </Admin>
     </>
