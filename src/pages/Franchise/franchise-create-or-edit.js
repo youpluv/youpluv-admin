@@ -1,5 +1,12 @@
 import React from "react";
-import { Create, Edit, TextInput, SimpleForm } from "react-admin";
+import {
+  Create,
+  Edit,
+  TextInput,
+  SimpleForm,
+  required,
+  email
+} from "react-admin";
 import CustomToolbar from "../../components/CustomToolbar/CustomToolbar";
 
 const FranchiseCreate = props => {
@@ -10,9 +17,24 @@ const FranchiseCreate = props => {
   return (
     <CreateOrEdit {...props}>
       <SimpleForm toolbar={<CustomToolbar />}>
-        <TextInput source="name" label="Nome da Franquia" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone_number" label="Telefone" />
+        <TextInput
+          source="name"
+          label="Nome da Franquia"
+          validate={required("Campo Obrigatório")}
+        />
+        <TextInput
+          source="email"
+          label="Email"
+          validate={[
+            email("Insira um email válido"),
+            required("Campo Obrigatório")
+          ]}
+        />
+        <TextInput
+          source="phone_number"
+          label="Telefone"
+          validate={required("Campo Obrigatório")}
+        />
         <TextInput source="address_zip" label="CEP" />
         <TextInput source="address_street" label="Rua" />
         <TextInput source="address_number" label="Numero" />
