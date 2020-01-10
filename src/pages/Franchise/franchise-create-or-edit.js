@@ -8,12 +8,14 @@ import {
   email
 } from "react-admin";
 import CustomToolbar from "../../components/CustomToolbar/CustomToolbar";
+import Input from "../../components/Input/Input";
 
 const FranchiseCreate = props => {
   const CreateOrEdit = props => {
     if (props.id) return <Edit title="Editar Franquia" {...props} />;
     return <Create title="Criar Franquia" {...props} />;
   };
+
   return (
     <CreateOrEdit {...props}>
       <SimpleForm toolbar={<CustomToolbar />}>
@@ -30,7 +32,8 @@ const FranchiseCreate = props => {
             required("Campo Obrigatório")
           ]}
         />
-        <TextInput
+        <Input
+          type={"phone"}
           source="phone_number"
           label="Telefone"
           validate={required("Campo Obrigatório")}
@@ -44,7 +47,11 @@ const FranchiseCreate = props => {
         <TextInput source="address_state" label="Estado" />
         <TextInput source="url_trinks" label="Link Trinks" />
         <TextInput source="url_maps" label="Link Google Maps" />
-        <TextInput source="work_hours" label="Horario de Funcionamento" />
+        <TextInput
+          source="work_hours"
+          multiline
+          label="Horario de Funcionamento"
+        />
       </SimpleForm>
     </CreateOrEdit>
   );
