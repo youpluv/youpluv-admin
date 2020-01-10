@@ -1,18 +1,43 @@
 import React from "react";
-import { Create, Edit, TextInput, SimpleForm } from "react-admin";
+import {
+  Create,
+  Edit,
+  TextInput,
+  SimpleForm,
+  required,
+  email
+} from "react-admin";
 import CustomToolbar from "../../components/CustomToolbar/CustomToolbar";
+import Input from "../../components/Input/Input";
 
 const FranchiseCreate = props => {
   const CreateOrEdit = props => {
     if (props.id) return <Edit title="Editar Franquia" {...props} />;
     return <Create title="Criar Franquia" {...props} />;
   };
+
   return (
     <CreateOrEdit {...props}>
       <SimpleForm toolbar={<CustomToolbar />}>
-        <TextInput source="name" label="Nome da Franquia" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone_number" label="Telefone" />
+        <TextInput
+          source="name"
+          label="Nome da Franquia"
+          validate={required("Campo Obrigatório")}
+        />
+        <TextInput
+          source="email"
+          label="Email"
+          validate={[
+            email("Insira um email válido"),
+            required("Campo Obrigatório")
+          ]}
+        />
+        <Input
+          type={"phone"}
+          source="phone_number"
+          label="Telefone"
+          validate={required("Campo Obrigatório")}
+        />
         <TextInput source="address_zip" label="CEP" />
         <TextInput source="address_street" label="Rua" />
         <TextInput source="address_number" label="Numero" />
@@ -22,7 +47,11 @@ const FranchiseCreate = props => {
         <TextInput source="address_state" label="Estado" />
         <TextInput source="url_trinks" label="Link Trinks" />
         <TextInput source="url_maps" label="Link Google Maps" />
-        <TextInput source="work_hours" label="Horario de Funcionamento" />
+        <TextInput
+          source="work_hours"
+          multiline
+          label="Horario de Funcionamento"
+        />
       </SimpleForm>
     </CreateOrEdit>
   );
