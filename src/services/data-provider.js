@@ -18,10 +18,10 @@ export default () => {
           filter_value: Object.values(params.filter)[0]
         };
 
-        Object.keys(queryStringParameters).forEach((key) =>{
-          if(queryStringParameters[key] && queryStringParameters[key] !== "id")
-            options.queryStringParameters[key] = queryStringParameters[key]
-        })
+        Object.keys(queryStringParameters).forEach(key => {
+          if (queryStringParameters[key] && queryStringParameters[key] !== "id")
+            options.queryStringParameters[key] = queryStringParameters[key];
+        });
 
         method = "GET";
         break;
@@ -34,8 +34,8 @@ export default () => {
         options.body = {
           ...params.data,
           entity_id: params.data.id
-        }
-        delete options.body.id
+        };
+        delete options.body.id;
         method = "PUT";
         break;
       }
@@ -74,16 +74,16 @@ export default () => {
         };
       case GET_ONE:
         return {
-          data: {id: data.entity_id, ...data}
-      };
+          data: { id: data.entity_id, ...data }
+        };
       case UPDATE:
-        return { data: { ...params.data, id: data.data } };
+        return { data: { ...params.data, id: data } };
       case CREATE:
-        return { data: { ...params.data, id: data.data } };
+        return { data: { ...params.data, id: data } };
       case DELETE:
-          return { data: { previousData: params.data, id: data.id } };
+        return { data: { previousData: params.data, id: data.id } };
       default:
-        return { data: data.data };
+        return { data };
     }
   };
 
@@ -93,31 +93,43 @@ export default () => {
       resource,
       params
     );
-    const id = params.id ? "/" + params.id : ""
+    const id = params.id ? "/" + params.id : "";
     options.response = true;
 
     switch (method) {
       case "GET":
-        return API.get(config.APIS.BOLAOABBR_ADMIN, resource + id, options).then(
-          response => convertHTTPResponse(response, type, resource, params)
+        return API.get(
+          config.APIS.BOLAOABBR_ADMIN,
+          resource + id,
+          options
+        ).then(response =>
+          convertHTTPResponse(response, type, resource, params)
         );
       case "PUT":
-        const _id = "/" + options.body.entity_id
-        return API.put(config.APIS.BOLAOABBR_ADMIN, resource + _id, options).then(
-          response => convertHTTPResponse(response, type, resource, params)
-        ).catch(error=>console.log("ERROR PUT :: ", error));
+        const _id = "/" + options.body.entity_id;
+        return API.put(config.APIS.BOLAOABBR_ADMIN, resource + _id, options)
+          .then(response =>
+            convertHTTPResponse(response, type, resource, params)
+          )
+          .catch(error => console.log("ERROR PUT :: ", error));
       case "POST":
-        return API.post(config.APIS.BOLAOABBR_ADMIN, resource, options).then(
-          response => convertHTTPResponse(response, type, resource, params)
+        return API.post(
+          config.APIS.BOLAOABBR_ADMIN,
+          resource,
+          options
+        ).then(response =>
+          convertHTTPResponse(response, type, resource, params)
         );
       case "DELETE":
-          return API.del(config.APIS.BOLAOABBR_ADMIN, resource + id, options).then(
-            response => convertHTTPResponse(response, type, resource, params)
-          );
-      default: 
-       throw new Error(
-        "Método não encontrado"
-      );
+        return API.del(
+          config.APIS.BOLAOABBR_ADMIN,
+          resource + id,
+          options
+        ).then(response =>
+          convertHTTPResponse(response, type, resource, params)
+        );
+      default:
+        throw new Error("Método não encontrado");
     }
   };
 };
