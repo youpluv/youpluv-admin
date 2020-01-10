@@ -7,7 +7,6 @@ import {
   required,
   email
 } from "react-admin";
-import CustomToolbar from "../../components/CustomToolbar/CustomToolbar";
 import Input from "../../components/Input/Input";
 
 const FranchiseCreate = props => {
@@ -18,7 +17,7 @@ const FranchiseCreate = props => {
 
   return (
     <CreateOrEdit {...props}>
-      <SimpleForm toolbar={<CustomToolbar />}>
+      <SimpleForm>
         <TextInput
           source="name"
           label="Nome da Franquia"
