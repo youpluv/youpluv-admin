@@ -6,7 +6,7 @@ import {
   ShowButton,
   Filter,
   TextInput,
-  CardActions,
+  TopToolbar,
   CreateButton
 } from "react-admin";
 
@@ -20,9 +20,9 @@ const FranchiseFilter = props => {
 
 const CustomActions = ({ basePath }) => {
   return (
-    <CardActions>
+    <TopToolbar>
       <CreateButton basePath={basePath} />
-    </CardActions>
+    </TopToolbar>
   );
 };
 

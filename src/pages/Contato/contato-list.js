@@ -6,7 +6,7 @@ import {
   Filter,
   TextInput,
   DateField,
-  CardActions,
+  TopToolbar,
   RefreshButton
 } from "react-admin";
 import ContatoShow from "./contato-show";
@@ -18,9 +18,9 @@ const UserFilter = props => (
 );
 
 const CustomActions = () => (
-  <CardActions>
+  <TopToolbar>
     <RefreshButton />
-  </CardActions>
+  </TopToolbar>
 );
 
 const UserList = props => {
