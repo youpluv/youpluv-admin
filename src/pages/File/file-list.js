@@ -6,8 +6,12 @@ import {
   EditButton,
   DeleteButton,
   TopToolbar,
-  CreateButton
+  CreateButton,
+  FunctionField
 } from "react-admin";
+import "moment-timezone";
+import Moment from "react-moment";
+import "moment/locale/pt-br";
 
 const CustomActions = ({ basePath }) => {
   return (
@@ -24,7 +28,11 @@ const FileList = props => {
         <Datagrid>
           <TextField source="name" label="Nome" />
           <TextField source="file_name" label="File" />
-          <TextField source="date" label="Data" />
+          <FunctionField
+            render={file => <Moment format={"DD/MM/YYYY"}>{file.date}</Moment>}
+            label="Data"
+          />
+
           <EditButton />
           <DeleteButton />
         </Datagrid>

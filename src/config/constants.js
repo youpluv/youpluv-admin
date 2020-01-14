@@ -1,7 +1,7 @@
 const APIS = {
-  BOLAOABBR: "mylash-api",
-  BOLAOABBR_PUBLIC: "mylash-public-api",
-  BOLAOABBR_ADMIN: "mylash-admin-api"
+  MYLASH: "mylash-api",
+  MYLASH_PUBLIC: "mylash-public-api",
+  MYLASH_ADMIN: "mylash-admin-api"
 };
 
 const STAGES = {

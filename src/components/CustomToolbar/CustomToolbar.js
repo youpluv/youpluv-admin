@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { SaveButton, Toolbar } from "react-admin";
 
-import  './style.scss';
+import "./style.scss";
 
 export default function CustomToolbar(props) {
   return (
     <Toolbar {...props}>
-        <SaveButton />
+      <SaveButton />
     </Toolbar>
   );
 }

@@ -99,7 +99,7 @@ export default () => {
     switch (method) {
       case "GET":
         return API.get(
-          config.APIS.BOLAOABBR_ADMIN,
+          config.APIS.MYLASH_ADMIN,
           resource + id,
           options
         ).then(response =>
@@ -107,14 +107,14 @@ export default () => {
         );
       case "PUT":
         const _id = "/" + options.body.entity_id;
-        return API.put(config.APIS.BOLAOABBR_ADMIN, resource + _id, options)
+        return API.put(config.APIS.MYLASH_ADMIN, resource + _id, options)
           .then(response =>
             convertHTTPResponse(response, type, resource, params)
           )
           .catch(error => console.log("ERROR PUT :: ", error));
       case "POST":
         return API.post(
-          config.APIS.BOLAOABBR_ADMIN,
+          config.APIS.MYLASH_ADMIN,
           resource,
           options
         ).then(response =>
@@ -122,7 +122,7 @@ export default () => {
         );
       case "DELETE":
         return API.del(
-          config.APIS.BOLAOABBR_ADMIN,
+          config.APIS.MYLASH_ADMIN,
           resource + id,
           options
         ).then(response =>
