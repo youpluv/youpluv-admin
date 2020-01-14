@@ -5,15 +5,19 @@ import {
   TextField,
   EditButton,
   DeleteButton,
-  CardActions,
-  CreateButton
+  TopToolbar,
+  CreateButton,
+  FunctionField
 } from "react-admin";
+import "moment-timezone";
+import Moment from "react-moment";
+import "moment/locale/pt-br";
 
 const CustomActions = ({ basePath }) => {
   return (
-    <CardActions>
+    <TopToolbar>
       <CreateButton basePath={basePath} />
-    </CardActions>
+    </TopToolbar>
   );
 };
 
@@ -24,7 +28,11 @@ const FileList = props => {
         <Datagrid>
           <TextField source="name" label="Nome" />
           <TextField source="file_name" label="File" />
-          <TextField source="date" label="Data" />
+          <FunctionField
+            render={file => <Moment format={"DD/MM/YYYY"}>{file.date}</Moment>}
+            label="Data"
+          />
+
           <EditButton />
           <DeleteButton />
         </Datagrid>

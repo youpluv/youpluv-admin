@@ -10,12 +10,12 @@ export const setStatus = (pendencia) => {
         }
     }
     console.log("STATUS :: ", options)
-    return API.post(config.APIS.BOLAOABBR_ADMIN, `solicitacao/${pendencia.entity_id}/status`, options);
+    return API.post(config.APIS.MYLASH_ADMIN, `solicitacao/${pendencia.entity_id}/status`, options);
 }
 
 export const getPendenciaById = id => {
     const options = {
         body: {}
     }
-    return API.get(config.APIS.BOLAOABBR_ADMIN, "pendencias/" + id, options);
+    return API.get(config.APIS.MYLASH_ADMIN, "pendencias/" + id, options);
 }

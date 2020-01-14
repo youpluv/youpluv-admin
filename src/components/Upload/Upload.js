@@ -36,7 +36,6 @@ export default function Upload(props) {
   const formReactAdmin = useForm();
 
   useEffect(() => {
-    console.log("::FORM::", form);
     if (form.url) fileUpload(form);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
@@ -44,7 +43,6 @@ export default function Upload(props) {
   const handleSetFileId = useCallback(
     fileId => {
       formReactAdmin.change(source, fileId);
-      formReactAdmin.change("id", fileId);
     },
     [formReactAdmin, source]
   );
@@ -81,15 +79,13 @@ export default function Upload(props) {
     formData.append("signature", form.signature);
     formData.append("x-amz-security-token", form["x-amz-security-token"]);
     formData.append("file", file);
-
-    console.log(file);
-
     startUpload(form.url, formData);
   }
 
   function handleChangeFile(e) {
-    console.log(e.target.files[0]);
-    setFile(e.target.files[0]);
+    const file = e.target.files[0] || {};
+    formReactAdmin.change("file_name", file.name);
+    setFile(file);
     getUrlUpload();
   }
 
@@ -128,7 +124,7 @@ export default function Upload(props) {
               </Button>
             </div>
           </Grid>
-          <Grid item xs={6} alignItems={"center"} justify={"center"}>
+          <Grid container item xs={6} alignItems={"center"} justify={"center"}>
             <Typography>{file.name || "Nenhum arquivo selecionado"}</Typography>
           </Grid>
           <Grid item xs={12}>

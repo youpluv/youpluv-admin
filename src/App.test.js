@@ -23,17 +23,17 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: config.APIS.BOLAOABBR_ADMIN,
+        name: config.APIS.MYLASH_ADMIN,
         endpoint: config.DOMAIN_ADMIN,
         ...COMMON
       },
       {
-        name: config.APIS.BOLAOABBR,
+        name: config.APIS.MYLASH,
         endpoint: config.DOMAIN,
         ...COMMON
       },
       {
-        name: config.APIS.BOLAOABBR_PUBLIC,
+        name: config.APIS.MYLASH_PUBLIC,
         endpoint: config.DOMAIN
       },
       {

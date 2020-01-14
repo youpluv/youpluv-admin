@@ -9,8 +9,11 @@ import FranchiseShow from "./pages/Franchise/franchise-show";
 
 // import Documents from "./pages/Documents/Documents";
 import FileList from "./pages/File/file-list";
-import FileEdit from "./pages/File/file-edit";
-import FileCreate from "./pages/File/file-create";
+import FileCreateOrEdit from "./pages/File/file-create-or-edit";
+
+import FolderList from "./pages/Folder/folder-list";
+import FolderEdit from "./pages/Folder/folder-edit";
+import FolderCreate from "./pages/Folder/folder-create";
 
 import "./style.scss";
 import dataProvider from "./services/data-provider";
@@ -35,10 +38,15 @@ function App() {
         <Resource
           name="file"
           list={FileList}
-          edit={FileEdit}
-          create={FileCreate}
+          create={FileCreateOrEdit}
+          edit={FileCreateOrEdit}
         />
-        <Resource name="folder" />
+        <Resource
+          name="folder"
+          list={FolderList}
+          edit={FolderEdit}
+          create={FolderCreate}
+        />
       </Admin>
     </>
   );
