@@ -8,7 +8,7 @@ export default function Input(props) {
   const form = useForm();
 
   const handleChange = event => {
-    const maskedValue = masks.phoneMask(event.target.value);
+    const maskedValue = masks[props.type || "standard"](event.target.value);
     form.change(source, maskedValue);
   };
 
