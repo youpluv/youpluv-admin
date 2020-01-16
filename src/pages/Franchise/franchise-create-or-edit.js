@@ -8,6 +8,8 @@ import {
   email
 } from "react-admin";
 import Input from "../../components/Input/Input";
+import Upload from "../../components/Upload/Upload";
+import { getUrlImage } from "../../services/file.service";
 
 const FranchiseCreate = props => {
   const CreateOrEdit = props => {
@@ -37,7 +39,8 @@ const FranchiseCreate = props => {
           label="Telefone"
           validate={required("Campo Obrigatório")}
         />
-        <TextInput source="address_zip" label="CEP" />
+        <Input type={"cep"} source="address_zip" label="CEP" />
+        {/* <TextInput source="address_zip" label="CEP" /> */}
         <TextInput source="address_street" label="Rua" />
         <TextInput source="address_number" label="Numero" />
         <TextInput source="address_complement" label="Complemento" />
@@ -50,6 +53,11 @@ const FranchiseCreate = props => {
           source="work_hours"
           multiline
           label="Horario de Funcionamento"
+        />
+        <Upload
+          placeholder={"Nenhuma imagem selecionada"}
+          source="image"
+          getUrl={getUrlImage}
         />
       </SimpleForm>
     </CreateOrEdit>

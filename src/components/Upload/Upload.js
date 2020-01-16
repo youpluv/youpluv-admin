@@ -26,7 +26,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Upload(props) {
-  const { source = "url", getUrl = () => {} } = props;
+  const {
+    source = "url",
+    sourceName = "",
+    getUrl = () => {},
+    placeholder = "Nenhum arquivo selecionado"
+  } = props;
   const [form, setForm] = useState({});
   const [file, setFile] = useState({});
   // const [progress, setProgress] = useState(0);
@@ -84,7 +89,7 @@ export default function Upload(props) {
 
   function handleChangeFile(e) {
     const file = e.target.files[0] || {};
-    formReactAdmin.change("file_name", file.name);
+    sourceName && formReactAdmin.change(sourceName, file.name);
     setFile(file);
     getUrlUpload();
   }
@@ -125,7 +130,7 @@ export default function Upload(props) {
             </div>
           </Grid>
           <Grid container item xs={6} alignItems={"center"} justify={"center"}>
-            <Typography>{file.name || "Nenhum arquivo selecionado"}</Typography>
+            <Typography>{file.name || placeholder}</Typography>
           </Grid>
           <Grid item xs={12}>
             <ProgressBar progress={progress} />

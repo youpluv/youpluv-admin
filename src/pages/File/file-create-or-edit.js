@@ -51,7 +51,7 @@ const FileCreateOrEdit = props => {
         initialValues={{ date: new Date() }}
       >
         <Grid container spacing={3}>
-          <Upload source="file_id" getUrl={getUrl} />
+          <Upload source="file_id" sourceName={"file_name"} getUrl={getUrl} />
           <TextInput source="file_name" label="Nome do Arquivo" />
           <TextInput source="name" label="Description" />
           <DateInput source="date" label="Data" />
