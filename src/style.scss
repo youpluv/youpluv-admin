@@ -68,6 +68,9 @@ body {
 .MuiButton-containedPrimary {
   color: #fff;
   background-color: $primaryColor !important;
+  &:disabled {
+    color: "#f00";
+  }
 }
 
 .MuiButton-containedPrimary:hover {

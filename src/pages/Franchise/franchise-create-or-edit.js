@@ -2,6 +2,7 @@ import React from "react";
 import {
   Create,
   Edit,
+  BooleanInput,
   TextInput,
   SimpleForm,
   required,
@@ -10,16 +11,18 @@ import {
 import Input from "../../components/Input/Input";
 import Upload from "../../components/Upload/Upload";
 import { getUrlImage } from "../../services/file.service";
+import { CustomToolbar } from "./toolbar";
+
+const CreateOrEdit = props => {
+  if (props.id) return <Edit title="Editar Franquia" {...props} />;
+  return <Create title="Criar Franquia" {...props} />;
+};
 
 const FranchiseCreate = props => {
-  const CreateOrEdit = props => {
-    if (props.id) return <Edit title="Editar Franquia" {...props} />;
-    return <Create title="Criar Franquia" {...props} />;
-  };
-
   return (
     <CreateOrEdit {...props}>
-      <SimpleForm>
+      <SimpleForm redirect="list" toolbar={<CustomToolbar {...props} />}>
+        <BooleanInput source="is_active" label="Ativo" />
         <TextInput
           source="name"
           label="Nome da Franquia"
@@ -40,7 +43,6 @@ const FranchiseCreate = props => {
           validate={required("Campo Obrigatório")}
         />
         <Input type={"cep"} source="address_zip" label="CEP" />
-        {/* <TextInput source="address_zip" label="CEP" /> */}
         <TextInput source="address_street" label="Rua" />
         <TextInput source="address_number" label="Numero" />
         <TextInput source="address_complement" label="Complemento" />

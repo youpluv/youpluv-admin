@@ -7,7 +7,7 @@ const FranchiseEdit = props => {
       <div style={{ margin: "20px 0" }}>
         <Show {...props} title="Usuário">
           <SimpleShowLayout>
-            <BooleanField source="is_admin" label="Admin" />
+            <BooleanField source="is_active" label="Ativo" />
             <TextField source="entity_id" label="ID" />
             <TextField source="name" label="Nome da Franquia" />
             <TextField source="email" label="Email" />
