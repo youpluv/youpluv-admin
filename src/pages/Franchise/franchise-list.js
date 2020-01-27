@@ -7,7 +7,8 @@ import {
   Filter,
   TextInput,
   TopToolbar,
-  CreateButton
+  CreateButton,
+  useAuthenticated
 } from "react-admin";
 
 const FranchiseFilter = props => {
@@ -27,6 +28,7 @@ const CustomActions = ({ basePath }) => {
 };
 
 const FranchiseList = props => {
+  useAuthenticated();
   return (
     <>
       <List

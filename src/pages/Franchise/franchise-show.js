@@ -1,7 +1,15 @@
 import React from "react";
-import { BooleanField, TextField, Show, SimpleShowLayout } from "react-admin";
+import {
+  BooleanField,
+  TextField,
+  Show,
+  SimpleShowLayout,
+  useAuthenticated
+} from "react-admin";
 
 const FranchiseEdit = props => {
+  useAuthenticated();
+
   return (
     <>
       <div style={{ margin: "20px 0" }}>

@@ -6,11 +6,12 @@ import {
   TextInput,
   SimpleForm,
   required,
-  email
+  email,
+  useAuthenticated
 } from "react-admin";
 import Input from "../../components/Input/Input";
 import Upload from "../../components/Upload/Upload";
-import { getUrlImage } from "../../services/file.service";
+import FilesService from "../../services/file.service";
 import { CustomToolbar } from "./toolbar";
 
 const CreateOrEdit = props => {
@@ -19,6 +20,8 @@ const CreateOrEdit = props => {
 };
 
 const FranchiseCreate = props => {
+  useAuthenticated();
+
   return (
     <CreateOrEdit {...props}>
       <SimpleForm redirect="list" toolbar={<CustomToolbar {...props} />}>
@@ -59,7 +62,7 @@ const FranchiseCreate = props => {
         <Upload
           placeholder={"Nenhuma imagem selecionada"}
           source="image"
-          getUrl={getUrlImage}
+          getUrl={FilesService.getUrlImage}
         />
       </SimpleForm>
     </CreateOrEdit>

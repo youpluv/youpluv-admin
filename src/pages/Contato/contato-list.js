@@ -7,7 +7,8 @@ import {
   TextInput,
   DateField,
   TopToolbar,
-  RefreshButton
+  RefreshButton,
+  useAuthenticated
 } from "react-admin";
 import ContatoShow from "./contato-show";
 
@@ -24,6 +25,7 @@ const CustomActions = () => (
 );
 
 const UserList = props => {
+  useAuthenticated();
   return (
     <List
       bulkActionButtons={false}

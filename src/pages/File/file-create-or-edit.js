@@ -5,13 +5,14 @@ import {
   SimpleForm,
   Toolbar,
   SaveButton,
-  Edit
+  Edit,
+  useAuthenticated
 } from "react-admin";
 import Grid from "@material-ui/core/Grid";
 
 import Upload from "../../components/Upload/Upload";
 import DateInput from "../../components/DateInput/DateInput";
-import { getUrl } from "../../services/file.service";
+import FilesService from "../../services/file.service";
 import TransferList from "../../components/TransferList/TransferList";
 import UserService from "../../services/users-service";
 
@@ -24,6 +25,7 @@ const CustomToolbar = props => {
 };
 
 const FileCreateOrEdit = props => {
+  useAuthenticated();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -51,7 +53,11 @@ const FileCreateOrEdit = props => {
         initialValues={{ date: new Date() }}
       >
         <Grid container spacing={3}>
-          <Upload source="file_id" sourceName={"file_name"} getUrl={getUrl} />
+          <Upload
+            source="file_id"
+            sourceName={"file_name"}
+            getUrl={FilesService.getUrl}
+          />
           <TextInput source="file_name" label="Nome do Arquivo" />
           <TextInput source="name" label="Description" />
           <DateInput source="date" label="Data" />
@@ -59,7 +65,6 @@ const FileCreateOrEdit = props => {
             source="allowed_franchises"
             items={users}
             itemsSelected="allowed_franchises"
-            defa
           />
         </Grid>
       </SimpleForm>

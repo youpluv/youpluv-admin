@@ -1,9 +1,11 @@
 import React from "react";
+import { useAuthenticated } from "react-admin";
 
-const ContatoShow = ({record}) => {
+const ContatoShow = ({ record }) => {
+  useAuthenticated();
   return (
-    <p style={{fontSize: '16px', lineHeight: '24px'}}>{record.mensagem}</p>
-        );
+    <p style={{ fontSize: "16px", lineHeight: "24px" }}>{record.mensagem}</p>
+  );
 };
 
 export default ContatoShow;
