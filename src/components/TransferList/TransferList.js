@@ -14,6 +14,7 @@ import {
   Button,
   Divider
 } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,7 +53,7 @@ function union(a, b) {
   return [...a, ...not(b, a)];
 }
 
-function TransferList({ items, source = "list", itemsSelected }) {
+function TransferList({ items, source, itemsSelected, labelLeft, labelRight }) {
   const classes = useStyles();
   const [checked, setChecked] = useState([]);
   const [left, setLeft] = useState([]);
@@ -182,7 +183,7 @@ function TransferList({ items, source = "list", itemsSelected }) {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item>{customList("Todas as Unidades", left)}</Grid>
+      <Grid item>{customList(labelLeft, left)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <Button
@@ -207,9 +208,23 @@ function TransferList({ items, source = "list", itemsSelected }) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList("Unidades selecionadas", right)}</Grid>
+      <Grid item>{customList(labelRight, right)}</Grid>
     </Grid>
   );
 }
+
+TransferList.defaultProps = {
+  items: [],
+  source: "List",
+  itemsSelected: [],
+  labelLeft: "Todas as Unidades",
+  labelRight: "Unidades Selecionadas"
+};
+
+TransferList.propTypes = {
+  items: PropTypes.array,
+  source: PropTypes.string,
+  itemsSelected: PropTypes.array
+};
 
 export default TransferList;
