@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 $primaryColor: #ec008c;
+=======
+$primaryColor: #2fa8cf;
+>>>>>>> s3-upload
 
 body {
   margin: 0;
@@ -68,9 +72,12 @@ body {
 .MuiButton-containedPrimary {
   color: #fff;
   background-color: $primaryColor !important;
+<<<<<<< HEAD
   &:disabled {
     color: "#f00";
   }
+=======
+>>>>>>> s3-upload
 }
 
 .MuiButton-containedPrimary:hover {

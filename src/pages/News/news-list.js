@@ -10,8 +10,8 @@ import {
   RefreshButton,
   useAuthenticated
 } from "react-admin";
-import ContatoShow from "./contato-show";
 
+<<<<<<< HEAD:src/pages/Contato/contato-list.js
 const UserFilter = props => (
   <Filter {...props}>
     <TextInput label="Buscar" source="email" alwaysOn />
@@ -26,21 +26,18 @@ const CustomActions = () => (
 
 const UserList = props => {
   useAuthenticated();
+=======
+const NewsList = props => {
+>>>>>>> s3-upload:src/pages/News/news-list.js
   return (
-    <List
-      bulkActionButtons={false}
-      {...props}
-      filters={<UserFilter />}
-      actions={<CustomActions />}
-    >
-      <Datagrid expand={<ContatoShow />}>
-        <DateField source="data_envio" label="Data envio" />
-        <TextField source="email" label="Email" />
-        <TextField source="nome" label="Nome" />
-        <TextField source="assunto" label="Assunto" />
+    <List bulkActionButtons={false} {...props}>
+      <Datagrid>
+        <DateField source="date" label="Data envio" />
+        <TextField source="title" label="Titulo" />
+        <TextField source="source" label="Origem" />
       </Datagrid>
     </List>
   );
 };
 
-export default UserList;
+export default NewsList;

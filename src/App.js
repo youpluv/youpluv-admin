@@ -3,21 +3,14 @@ import { Admin, Resource } from "react-admin";
 import Theme from "./Theme";
 import LoginPage from "./components/LoginPage/LoginPage";
 
-import FranchiseList from "./pages/Franchise/franchise-list";
-import FranchiseCreateOrEdit from "./pages/Franchise/franchise-create-or-edit";
-import FranchiseShow from "./pages/Franchise/franchise-show";
-
-// import Documents from "./pages/Documents/Documents";
-import FileList from "./pages/File/file-list";
-import FileCreateOrEdit from "./pages/File/file-create-or-edit";
-
-import FolderList from "./pages/Folder/folder-list";
-import FolderCreateOrEdit from "./pages/Folder/folder-create-or-edit";
-// import FolderCreate from "./pages/Folder/folder-create";
+import UserList from "./pages/User/user-list";
 
 import "./style.scss";
 import dataProvider from "./services/data-provider";
 import authProvider from "./services/auth-provider";
+import NewsList from "./pages/News/news-list";
+import NewsCreateOrEdit from "./pages/News/news-create";
+import Record from "./pages/Record/Record";
 
 function App() {
   return (
@@ -29,23 +22,22 @@ function App() {
         authProvider={authProvider}
       >
         <Resource
-          name="franchise"
-          list={FranchiseList}
-          edit={FranchiseCreateOrEdit}
-          show={FranchiseShow}
-          create={FranchiseCreateOrEdit}
+          name="rainfall"
+          options={{ label: "Registros" }}
+          list={Record}
         />
         <Resource
-          name="file"
-          list={FileList}
-          create={FileCreateOrEdit}
-          edit={FileCreateOrEdit}
+          name="users"
+          options={{ label: "Usuários" }}
+          list={UserList}
         />
+
         <Resource
-          name="folder"
-          list={FolderList}
-          edit={FolderCreateOrEdit}
-          create={FolderCreateOrEdit}
+          name="news"
+          options={{ label: "Notícias" }}
+          list={NewsList}
+          create={NewsCreateOrEdit}
+          edit={NewsCreateOrEdit}
         />
       </Admin>
     </>

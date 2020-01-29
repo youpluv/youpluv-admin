@@ -1,34 +1,14 @@
-const APIS = {
-  MYLASH: "mylash-api",
-  MYLASH_PUBLIC: "mylash-public-api",
-  MYLASH_ADMIN: "mylash-admin-api"
-};
-
 const STAGES = {
   dev: {
-    COGNITO: {
-      REGION: "us-east-1",
-      USER_POOL_ID: "us-east-1_zakxcfV58",
-      APP_CLIENT_ID: "52f29jf7umop7qs9m2tqftpsfv"
-    },
-    APIS,
-    DOMAIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev",
-    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/"
+    BASE_URL: "http://127.0.0.1:3333/"
   },
   stg: {},
   prd: {
-    COGNITO: {
-      REGION: "us-east-1",
-      USER_POOL_ID: "us-east-1_zakxcfV58",
-      APP_CLIENT_ID: "52f29jf7umop7qs9m2tqftpsfv"
-    },
-    APIS,
-    DOMAIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev",
-    DOMAIN_ADMIN: "https://1qizvqhap1.execute-api.us-east-1.amazonaws.com/dev/admin/"
+    BASE_URL: "https://youpluv.herokuapp.com/"
   }
 };
 
-const env = process.env.REACT_APP_STAGE || 'dev';
+const env = process.env.REACT_APP_STAGE || "dev";
 const config = STAGES[env];
 
 export default config;
