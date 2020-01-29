@@ -18,7 +18,7 @@ import {
 // import config from "../../config/constants";
 // import Upload from "../../components/upload/Upload";
 
-const FranchiseFilter = props => {
+const UserFilter = props => {
   return (
     <Filter {...props}>
       <TextInput label="Buscar" source="email" alwaysOn />
@@ -34,7 +34,7 @@ const CustomActions = ({ basePath }) => {
   );
 };
 
-const FranchiseList = props => {
+const UserList = props => {
   // const [state, setState] = useState({});
   // const [file, setFile] = useState({});
 
@@ -82,20 +82,18 @@ const FranchiseList = props => {
       <List
         bulkActionButtons={false}
         {...props}
-        filters={<FranchiseFilter />}
-        actions={<CustomActions />}
+        // filters={<FranchiseFilter />}
+        // actions={<CustomActions />}
       >
         <Datagrid>
-          <TextField source="name" label="Nome" />
+          <TextField source="username" label="Nome" />
           <TextField source="email" label="Email" />
-          <TextField source="phone_number" label="Telefone" />
-          <ShowButton />
-          <EditButton />
-          <DeleteButton />
+          {/* <ShowButton /> */}
+          {/* <EditButton /> */}
         </Datagrid>
       </List>
     </>
   );
 };
 
-export default FranchiseList;
+export default UserList;

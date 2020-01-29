@@ -1,8 +1,10 @@
 import { CREATE, GET_LIST, GET_ONE, UPDATE, DELETE } from "ra-core";
 import config from "../config/constants";
-import { API } from "aws-amplify";
+import Axios from "axios";
 
 export default () => {
+  Axios.defaults.headers.common["Authorization"] =
+    "Bearer " + localStorage.getItem("token");
   const convertDataRequestToHTTP = (type, resource, params) => {
     let options = { response: true, queryStringParameters: {} };
     let method;
@@ -18,10 +20,10 @@ export default () => {
           filter_value: Object.values(params.filter)[0]
         };
 
-        Object.keys(queryStringParameters).forEach((key) =>{
-          if(queryStringParameters[key] && queryStringParameters[key] !== "id")
-            options.queryStringParameters[key] = queryStringParameters[key]
-        })
+        Object.keys(queryStringParameters).forEach(key => {
+          if (queryStringParameters[key] && queryStringParameters[key] !== "id")
+            options.queryStringParameters[key] = queryStringParameters[key];
+        });
 
         method = "GET";
         break;
@@ -34,8 +36,8 @@ export default () => {
         options.body = {
           ...params.data,
           entity_id: params.data.id
-        }
-        delete options.body.id
+        };
+        delete options.body.id;
         method = "PUT";
         break;
       }
@@ -56,32 +58,33 @@ export default () => {
   };
 
   const convertHTTPResponse = (response, type, resource, params) => {
-    const data = response.data.data;
+    const data = response.data;
 
     switch (type) {
       case GET_LIST:
-        if (!response.headers.hasOwnProperty("content-range")) {
-          throw new Error(
-            "The Content-Range header is missing in the HTTP Response. The simple REST data provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare Content-Range in the Access-Control-Expose-Headers header?"
-          );
-        }
+        // if (!response.headers.hasOwnProperty("content-range")) {
+        //   throw new Error(
+        //     "The Content-Range header is missing in the HTTP Response. The simple REST data provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare Content-Range in the Access-Control-Expose-Headers header?"
+        //   );
+        // }
         return {
           data: data.map(value => ({ id: value.entity_id, ...value })),
-          total: parseInt(
-            response.headers["content-range"].split("/").pop(),
-            10
-          )
+          total: data.length
+          // total: parseInt(
+          //   response.headers["content-range"].split("/").pop(),
+          //   10
+          // )
         };
       case GET_ONE:
         return {
-          data: {id: data.entity_id, ...data}
-      };
+          data: { id: data.entity_id, ...data }
+        };
       case UPDATE:
         return { data: { ...params.data, id: data.data } };
       case CREATE:
         return { data: { ...params.data, id: data.data } };
       case DELETE:
-          return { data: { previousData: params.data, id: data.id } };
+        return { data: { previousData: params.data, id: data.id } };
       default:
         return { data: data.data };
     }
@@ -93,31 +96,37 @@ export default () => {
       resource,
       params
     );
-    const id = params.id ? "/" + params.id : ""
+    const id = params.id ? "/" + params.id : "";
     options.response = true;
 
     switch (method) {
       case "GET":
-        return API.get(config.APIS.BOLAOABBR_ADMIN, resource + id, options).then(
-          response => convertHTTPResponse(response, type, resource, params)
+        return Axios.get(
+          config.BASE_URL + resource + id,
+          options
+        ).then(response =>
+          convertHTTPResponse(response, type, resource, params)
         );
       case "PUT":
-        const _id = "/" + options.body.entity_id
-        return API.put(config.APIS.BOLAOABBR_ADMIN, resource + _id, options).then(
-          response => convertHTTPResponse(response, type, resource, params)
-        ).catch(error=>console.log("ERROR PUT :: ", error));
+        // const _id = "/" + options.body.entity_id;
+        return Axios.put(config.BASE_URL + resource + id, options)
+          .then(response =>
+            convertHTTPResponse(response, type, resource, params)
+          )
+          .catch(error => console.log("ERROR PUT :: ", error));
       case "POST":
-        return API.post(config.APIS.BOLAOABBR_ADMIN, resource, options).then(
-          response => convertHTTPResponse(response, type, resource, params)
+        return Axios.post(config.BASE_URL + resource, options).then(response =>
+          convertHTTPResponse(response, type, resource, params)
         );
       case "DELETE":
-          return API.del(config.APIS.BOLAOABBR_ADMIN, resource + id, options).then(
-            response => convertHTTPResponse(response, type, resource, params)
-          );
-      default: 
-       throw new Error(
-        "Método não encontrado"
-      );
+        return Axios.del(
+          config.BASE_URL + resource + id,
+          options
+        ).then(response =>
+          convertHTTPResponse(response, type, resource, params)
+        );
+      default:
+        throw new Error("Método não encontrado");
     }
   };
 };
