@@ -1,0 +1,97 @@
+image: foodsby/node-pip-awscli
+
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run test
+  coverage: /Statements [^:]*\:[^%]*\s+([\d\.]+)/
+  artifacts:
+    paths:
+      - coverage/
+      - node_modules
+
+.build:
+  stage: build
+  artifacts:
+    paths:
+      - build/
+  dependencies:
+    - test
+
+build to dev:
+  extends: .build
+  environment: dev
+  script:
+    - npm run build-dev
+  only:
+    - develop
+
+build to stg:
+  extends: .build
+  environment: stg
+  script:
+    - npm run build-stg
+  only:
+    - master
+
+build to prd:
+  extends: .build
+  environment: prd
+  script:
+    - npm run build-prd
+  only:
+    - tags
+
+.deploy:
+  stage: deploy
+
+deploy to dev:
+  extends: .deploy
+  environment: dev
+  dependencies:
+    - build to dev
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_DEV
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_DEV
+    AWS_DEFAULT_REGION: $AWS_REGION_DEV
+  script:
+    - aws s3 cp build/ s3://$BUCKET_NAME_DEV/admin --recursive --acl public-read --exclude index.html
+    - aws s3 cp build/ s3://$BUCKET_NAME_DEV/admin --recursive --acl public-read --exclude "*" --include index.html --cache-control "no-cache, no-store"
+  only:
+    - develop
+
+deploy to stg:
+  extends: .deploy
+  environment: stg
+  dependencies:
+    - build to stg
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_STG
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_STG
+    AWS_DEFAULT_REGION: $AWS_REGION_STG
+  script:
+    - aws s3 cp build/ s3://$BUCKET_NAME_STG --recursive --acl public-read --exclude index.html
+    - aws s3 cp build/ s3://$BUCKET_NAME_STG --recursive --acl public-read --exclude "*" --include index.html --cache-control "no-cache, no-store"
+  only:
+    - master
+
+deploy to prod:
+  extends: .deploy
+  environment: prd
+  dependencies:
+    - build to prd
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_PRD
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_PRD
+    AWS_DEFAULT_REGION: $AWS_REGION_PRD
+  script:
+    - aws s3 cp build/ s3://$BUCKET_NAME_PRD --recursive --acl public-read --exclude index.html
+    - aws s3 cp build/ s3://$BUCKET_NAME_PRD --recursive --acl public-read --exclude "*" --include index.html --cache-control "no-cache, no-store"
+  only:
+    - tags
