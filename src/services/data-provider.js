@@ -101,51 +101,25 @@ export default () => {
 
     switch (method) {
       case "GET":
-<<<<<<< HEAD
-        return API.get(
-          config.APIS.MYLASH_ADMIN,
-          resource + id,
-=======
         return Axios.get(
           config.BASE_URL + resource + id,
->>>>>>> s3-upload
           options
         ).then(response =>
           convertHTTPResponse(response, type, resource, params)
         );
       case "PUT":
-<<<<<<< HEAD
-        const _id = "/" + options.body.entity_id;
-        return API.put(config.APIS.MYLASH_ADMIN, resource + _id, options)
-=======
-        // const _id = "/" + options.body.entity_id;
         return Axios.put(config.BASE_URL + resource + id, options)
->>>>>>> s3-upload
           .then(response =>
             convertHTTPResponse(response, type, resource, params)
           )
           .catch(error => console.log("ERROR PUT :: ", error));
       case "POST":
-<<<<<<< HEAD
-        return API.post(
-          config.APIS.MYLASH_ADMIN,
-          resource,
-          options
-        ).then(response =>
-          convertHTTPResponse(response, type, resource, params)
-        );
-      case "DELETE":
-        return API.del(
-          config.APIS.MYLASH_ADMIN,
-          resource + id,
-=======
         return Axios.post(config.BASE_URL + resource, options).then(response =>
           convertHTTPResponse(response, type, resource, params)
         );
       case "DELETE":
         return Axios.del(
           config.BASE_URL + resource + id,
->>>>>>> s3-upload
           options
         ).then(response =>
           convertHTTPResponse(response, type, resource, params)
