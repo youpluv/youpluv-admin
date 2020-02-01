@@ -77,12 +77,12 @@ export default () => {
         };
       case GET_ONE:
         return {
-          data: { id: data.entity_id, ...data }
+          data: { id: data._id, ...data }
         };
       case UPDATE:
-        return { data: { ...params.data, id: data } };
+        return { data: { ...params.data } };
       case CREATE:
-        return { data: { ...params.data, id: data } };
+        return { data: { ...params.data } };
       case DELETE:
         return { data: { previousData: params.data, id: data.id } };
       default:
@@ -108,17 +108,20 @@ export default () => {
           convertHTTPResponse(response, type, resource, params)
         );
       case "PUT":
-        return Axios.put(config.BASE_URL + resource + id, options)
+        return Axios.put(config.BASE_URL + resource + id, options.body)
           .then(response =>
             convertHTTPResponse(response, type, resource, params)
           )
           .catch(error => console.log("ERROR PUT :: ", error));
       case "POST":
-        return Axios.post(config.BASE_URL + resource, options).then(response =>
+        return Axios.post(
+          config.BASE_URL + resource,
+          options.body
+        ).then(response =>
           convertHTTPResponse(response, type, resource, params)
         );
       case "DELETE":
-        return Axios.del(
+        return Axios.delete(
           config.BASE_URL + resource + id,
           options
         ).then(response =>
