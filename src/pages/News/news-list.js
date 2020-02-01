@@ -6,6 +6,7 @@ import {
   Filter,
   TextInput,
   DateField,
+  DeleteButton,
   TopToolbar,
   RefreshButton,
   useAuthenticated
@@ -14,10 +15,11 @@ import {
 const NewsList = props => {
   return (
     <List bulkActionButtons={false} {...props}>
-      <Datagrid>
+      <Datagrid rowClick="edit">
         <DateField source="date" label="Data envio" />
         <TextField source="title" label="Titulo" />
         <TextField source="source" label="Origem" />
+        <DeleteButton />
       </Datagrid>
     </List>
   );

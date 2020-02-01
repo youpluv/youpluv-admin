@@ -7,6 +7,7 @@ import ProgressBar from "../ProgressBar";
 import { useForm } from "react-final-form";
 import useUpload from "../../hooks/useUpload";
 import { Typography } from "@material-ui/core";
+import config from "../../config/constants";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,72 +27,63 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Upload(props) {
-  const {
-    source = "url",
-    sourceName = "",
-    getUrl = () => {},
-    placeholder = "Nenhum arquivo selecionado"
-  } = props;
+  const { source = "url", getUrl = () => {} } = props;
   const [form, setForm] = useState({});
   const [file, setFile] = useState({});
   // const [progress, setProgress] = useState(0);
 
-  const { progress, startUpload, status } = useUpload();
+  const { progress, startUpload, status, urlUploaded } = useUpload();
 
-  const formReactAdmin = useForm();
+  const _form = useForm();
 
   useEffect(() => {
-    if (form.url) fileUpload(form);
+    if (file) fileUpload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form]);
+  }, [file]);
 
   const handleSetFileId = useCallback(
     fileId => {
-      formReactAdmin.change(source, fileId);
+      _form.change(source, fileId);
     },
-    [formReactAdmin, source]
+    [_form, source]
   );
 
   const classes = useStyles();
 
-  async function getUrlUpload() {
-    const response = await getUrl();
-    handleSetFileId(response.fields.key);
-    setForm({ ...response.fields, url: response.url });
-  }
+  useEffect(() => {
+    console.log("DONE :: ", urlUploaded);
 
-  function fileUpload(form) {
-    // check file type
-    // if (
-    //   !["image/jpeg", "image/gif", "image/png", "image/svg+xml"].includes(
-    //     file.type
-    //   )
-    // ) {
-    //   console.log("Only images are allowed.");
-    //   return;
-    // }
+    _form.change(source, urlUploaded);
+  }, [source, urlUploaded]);
 
-    // check file size (< 2MB)
+  function fileUpload() {
+    if (
+      ![
+        "image/jpg",
+        "image/jpeg",
+        "image/gif",
+        "image/png",
+        "image/svg+xml"
+      ].includes(file.type)
+    ) {
+      console.log("Only images are allowed.");
+      return;
+    }
+
     if (file.size > 5 * 1024 * 1024) {
       console.log("File must be less than 5MB.");
       return;
     }
 
     let formData = new FormData();
-    formData.append("key", form.key);
-    formData.append("AWSAccessKeyId", form.AWSAccessKeyId);
-    formData.append("policy", form.policy);
-    formData.append("signature", form.signature);
-    formData.append("x-amz-security-token", form["x-amz-security-token"]);
-    formData.append("file", file);
-    startUpload(form.url, formData);
+    formData.append("type", "news");
+    formData.append("image", file);
+
+    startUpload(config.BASE_URL + "images", formData);
   }
 
   function handleChangeFile(e) {
-    const file = e.target.files[0] || {};
-    sourceName && formReactAdmin.change(sourceName, file.name);
-    setFile(file);
-    getUrlUpload();
+    setFile(e.target.files[0]);
   }
 
   return (
@@ -125,12 +117,12 @@ export default function Upload(props) {
                 disabled={status === "loading"}
                 onClick={() => document.querySelector("#file").click()}
               >
-                {status === "loading" ? `${progress}%` : "IMPORTAR"}
+                {status === "loading" ? `${progress}%` : "UPLOAD"}
               </Button>
             </div>
           </Grid>
-          <Grid container item xs={6} alignItems={"center"} justify={"center"}>
-            <Typography>{file.name || placeholder}</Typography>
+          <Grid item xs={6}>
+            <Typography>{file.name || "Nenhum arquivo selecionado"}</Typography>
           </Grid>
           <Grid item xs={12}>
             <ProgressBar progress={progress} />

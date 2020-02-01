@@ -1,17 +1,38 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import { useState } from "react";
+import * as Api from "../../services/rain.service";
+import { useEffect } from "react";
+import Marker from "../../components/marker/Marker";
+import config from "../../config/constants";
 
 function Record(props) {
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    getRecords();
+  }, []);
+
+  const getRecords = async () => {
+    try {
+      const response = await Api.getRecords();
+      setRecords(response);
+      console.log("RECORDS :: ", response);
+    } catch (error) {
+      console.log("ERROR GET RECORDS :: ", error);
+    }
+  };
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyB1KdmPot2-mTQEAL5VAKjWvwcyZHEK1hw" }}
+        bootstrapURLKeys={{ key: config.API_KEY_GOOGLE }}
         defaultCenter={props.center}
         defaultZoom={props.zoom}
       >
-        <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" />
+        {records.map(item => (
+          <Marker lat={item.latitude} lng={item.longitude} />
+        ))}
+        {/* <AnyReactComponent lat={item.latitude} lng={item.longitude}  text="My Marker" /> */}
       </GoogleMapReact>
     </div>
   );
@@ -19,10 +40,10 @@ function Record(props) {
 
 Record.defaultProps = {
   center: {
-    lat: 59.95,
-    lng: 30.33
+    lat: -22.98,
+    lng: -43.635
   },
-  zoom: 11
+  zoom: 13
 };
 
 export default Record;
