@@ -14,7 +14,7 @@
     "material-ui": "^0.20.2",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "ra-data-json-server": "^3.0.3",
     "ra-input-rich-text": "^3.1.0",
